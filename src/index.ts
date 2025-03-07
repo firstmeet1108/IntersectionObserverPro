@@ -1,4 +1,23 @@
-class IntersectionObserverPro extends IntersectionObserver {
+type IntersectionObserverProEntry = {
+  data: unknown;
+} & IntersectionObserverEntry;
+
+type IntersectionObserverProCallback = (
+  entrys: IntersectionObserverProEntry[],
+  observer?: IntersectionObserverPro,
+) => void;
+
+type IntersectionObserverProInit = IntersectionObserverInit & {
+  getKey?: (target: Element) => unknown;
+  beforeUnobserve?: BeforeUnobserve;
+};
+
+type BeforeUnobserve = (
+  key: unknown,
+  observer: IntersectionObserverPro,
+) => void;
+
+export class IntersectionObserverPro extends IntersectionObserver {
   dataMap: Map<unknown, unknown> = new Map();
   getKey = (target: Element): unknown => target;
   private beforeUnobserve: BeforeUnobserve = (key, observer) => {
